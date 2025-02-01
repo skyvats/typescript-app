@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.main-background{
+  background-color: rgb(28, 42, 53);
+}
+
+.key-words{
+  background-color: rgb(212, 212, 212);
+  border-radius: 15px;
+  padding:3px;
+  margin: 2px;
+  font-size: 12px;
+  box-shadow: 2px 2px 8px #797979;
+}

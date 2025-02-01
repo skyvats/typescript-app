@@ -1,12 +1,26 @@
 import { AutoComplete } from "primereact/autocomplete";
 import React, { useState } from "react";
 import axios from "axios";
+import { Dropdown } from "primereact/dropdown";
+import { KeyWordsComponent } from "../otherComponents/KeyWordsComponent";
+import { UIUtils } from "../../utils/UIUtils";
 
 
 export const SearchAutoComplete=()=>{
 
+    const [searchResult, setSearchResult] = useState<any>([]);
     const [searchedValue, setSearchedValue] = useState<any>(null);
     const [suggestedItems, setSuggestedItems] =  useState<any>([]);
+    const [autoCompleteWidth] = useState<any>("30rem");
+    const [duration, setDuration] = useState<any>({ name: '1 Year', code: '1 Year' });
+    const [selectedObject, setSelectedObject] = useState<any>({}); 
+    const durationList = [
+        { name: '6 Month', code: '6 Month' },
+        { name: '1 Year', code: '1 Year' },
+        { name: '3 Year', code: '3 Year' },
+        { name: '5 Year', code: '5 Year' },
+        { name: 'All Time', code: 'All Time' }
+    ];
 
     const search = (event: any) => {
 
@@ -21,6 +35,7 @@ export const SearchAutoComplete=()=>{
 
             const data = response.data;
             if(data != undefined && data!= null){
+                setSearchResult(data.objects);
                 const npmSearchResult = data.objects;
                 console.log("npmSearchResult => ", npmSearchResult);
 
@@ -45,11 +60,55 @@ export const SearchAutoComplete=()=>{
 
         setSearchedValue(e.value);
 
+        var selectedValueObject = {};
+
+        searchResult.map((object:any)=>{
+            if(object.package.name === e.value){
+                selectedValueObject = object;
+            }
+        })
+
+        console.log("selectedValueObject => ", selectedValueObject);
+        setSelectedObject(selectedValueObject);
+
+
     }
 
+    // Custom item template
+    const itemTemplate = (item:any) => {
+
+        console.log("itemTemplate => ", {item, searchResult});
+        var description:any = "-"
+
+        searchResult.map((object:any)=>{
+            if(object.package.name === item){
+                description = object.package.description;
+            }
+        })
+
+        return (
+        <div style={{ padding: '8px' }}>
+            <div style={{ fontWeight: 'bold' }}>{item}</div>
+            <div style={{ fontSize: '12px', color: 'gray' }} title={description}>{description}</div>
+        </div>
+        )
+    };
+
     return(
-        <div>
-            <AutoComplete value={searchedValue} suggestions={suggestedItems} completeMethod={search} onChange={(e) => onSearchFieldValueChange(e)}  />
+        <div className="w-12 flex flex-wrap justify-content-center" >
+            <div className="">
+            <AutoComplete panelStyle={{width:autoCompleteWidth}} placeholder="Search Packages.." inputStyle={{width:autoCompleteWidth}} value={searchedValue} suggestions={suggestedItems} 
+            completeMethod={search} onChange={(e) => onSearchFieldValueChange(e)} itemTemplate={(e:any) => itemTemplate(e)}/>
+            <Dropdown value={duration} onChange={(e) => setDuration(e.value)} options={durationList} optionLabel="name" 
+             className="w-full md:w-8rem" />
+             {
+                UIUtils.nullOrEmpty(selectedObject) ? null :
+                <div className="w-12 flex flex-wrap justify-content-center">
+                    <KeyWordsComponent keyWordList={selectedObject.package.keywords} />
+                </div>   
+             }
+             
+            </div>
         </div>
     )
 }
