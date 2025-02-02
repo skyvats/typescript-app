@@ -1,4 +1,5 @@
 import { Card } from 'primereact/card';
+import { Tag } from 'primereact/tag';
 import React from 'react';
 
 interface KeyValueProps {
@@ -13,21 +14,30 @@ const KeyValue = ({ data }: KeyValueProps) => {
     : Object.entries(data);
 
   return (
-    <Card className="p-2 max-w-md mx-auto bg-white rounded-2xl shadow-md">
+    <div className="p-4 max-w-md mx-auto bg-white rounded-2xl shadow-md">
       <h2 className="text-xl font-bold mb-4 text-center">Key-Value Pairs</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {entries.map(([key, value]: any, index: number) => (
-          <React.Fragment key={index}>
-            <div className="font-semibold text-gray-700 bg-gray-100 p-2 rounded-lg">
-              {key}
-            </div>
-            <div className="text-gray-900 bg-gray-50 p-2 rounded-lg">
-              {String(value)}
-            </div>
-          </React.Fragment>
-        ))}
-      </div>
-    </Card>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr>
+            <th className="text-left p-2 border-b-2">Key</th>
+            <th className="text-left p-2 border-b-2">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {entries.map(([key, value]: any, index: number) => (
+            <tr key={index} className="border-b">
+              <td className="flex items-center p-2 text-gray-700">
+              <i className="pi pi-check"></i>
+                <span className="font-semibold">{key}</span>
+              </td>
+              <td className="p-2 text-gray-900">
+                {String(value)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

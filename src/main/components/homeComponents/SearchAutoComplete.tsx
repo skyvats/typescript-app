@@ -5,8 +5,11 @@ import { Dropdown } from "primereact/dropdown";
 import { KeyWordsComponent } from "../otherComponents/KeyWordsComponent";
 import { UIUtils } from "../../utils/UIUtils";
 
+interface SearchAutoCompleteProps{
+    setSelectedPackage:any
+}
 
-export const SearchAutoComplete=()=>{
+export const SearchAutoComplete=({setSelectedPackage}:SearchAutoCompleteProps)=>{
 
     const [searchResult, setSearchResult] = useState<any>([]);
     const [searchedValue, setSearchedValue] = useState<any>(null);
@@ -70,6 +73,7 @@ export const SearchAutoComplete=()=>{
 
         console.log("selectedValueObject => ", selectedValueObject);
         setSelectedObject(selectedValueObject);
+        setSelectedPackage(selectedValueObject);
 
 
     }

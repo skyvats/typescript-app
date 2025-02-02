@@ -5,7 +5,7 @@ import { Card } from "primereact/card";
 export const MainComponent=()=>{
 
     const [requiredCardWidth] = useState<string>(
-        `${Math.floor(window.screen.availWidth * 0.95)}px`
+        `${Math.floor(window.screen.availWidth * 0.8)}px`
       );
       const [requiredCardHeight] = useState<string>(
         `${Math.floor(window.screen.availHeight * 0.82)}px`
