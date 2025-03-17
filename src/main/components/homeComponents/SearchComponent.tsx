@@ -7,10 +7,13 @@ import { Card } from "primereact/card";
 import InstallComponent from "./InstallComponent";
 import HyperlinkDetails from "./Hyperlink";
 import { UIUtils } from "../../utils/UIUtils";
+import NPMTrendLogo from "../../images/NPMTrend.png"
+import { Image } from "primereact/image";
 
 export const SearchComponent=()=>{
 
     const [selectedObject, setSelectedObject] = useState<any>({});
+    const [selectedDuration, setSelectedDuration] = useState<any>("");
     const [links, setLinks] = useState<any>({});
 
     useEffect(()=>{
@@ -23,11 +26,11 @@ export const SearchComponent=()=>{
 
     return(
         <div className="grid">
-            <div className="col-12">
-                NPM Trend
+            <div className="col-12 flex flex-wrap justify-content-center">
+                <Image src={NPMTrendLogo} width={"300"} />
             </div>
             <div className="col-12">
-                <SearchAutoComplete setSelectedPackage={setSelectedObject} />
+                <SearchAutoComplete setSelectedPackage={setSelectedObject} setSelectedDuration={setSelectedDuration} />
             </div>
 
             {
@@ -35,7 +38,7 @@ export const SearchComponent=()=>{
                 <div className="w-12 grid">
                 <div className="col-9">
                     <Card>
-                    <LineChart/>
+                    <LineChart packageName={selectedObject.package.name} duration={selectedDuration}/>
                     </Card>
                 </div>
                 <div className="col-3">

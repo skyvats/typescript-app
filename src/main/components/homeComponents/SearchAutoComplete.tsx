@@ -6,21 +6,23 @@ import { KeyWordsComponent } from "../otherComponents/KeyWordsComponent";
 import { UIUtils } from "../../utils/UIUtils";
 
 interface SearchAutoCompleteProps{
-    setSelectedPackage:any
+    setSelectedPackage:any,
+    setSelectedDuration:any
 }
 
-export const SearchAutoComplete=({setSelectedPackage}:SearchAutoCompleteProps)=>{
+export const SearchAutoComplete=({setSelectedPackage, setSelectedDuration}:SearchAutoCompleteProps)=>{
 
     const [searchResult, setSearchResult] = useState<any>([]);
     const [searchedValue, setSearchedValue] = useState<any>(null);
     const [suggestedItems, setSuggestedItems] =  useState<any>([]);
     const [autoCompleteWidth] = useState<any>("30rem");
     const [duration, setDuration] = useState<any>({ name: '1 Year', code: '1 Year' });
+    setSelectedDuration(duration);
     const [selectedObject, setSelectedObject] = useState<any>({}); 
     const durationList = [
-        { name: '6 Month', code: '6 Month' },
+        { name: 'Weekly', code: 'Weekly' },
         { name: '1 Year', code: '1 Year' },
-        { name: '3 Year', code: '3 Year' },
+        { name: '3 Year', code: '3 Year' }, 
         { name: '5 Year', code: '5 Year' },
         { name: 'All Time', code: 'All Time' }
     ];
@@ -98,12 +100,19 @@ export const SearchAutoComplete=({setSelectedPackage}:SearchAutoCompleteProps)=>
         )
     };
 
+    const onDurationChange=(e:any)=>{
+
+        setDuration(e.value);
+        setSelectedDuration(e.value);
+
+    }
+
     return(
         <div className="w-12 flex flex-wrap justify-content-center" >
             <div className="">
             <AutoComplete panelStyle={{width:autoCompleteWidth}} placeholder="Search Packages.." inputStyle={{width:autoCompleteWidth}} value={searchedValue} suggestions={suggestedItems} 
             completeMethod={search} onChange={(e) => onSearchFieldValueChange(e)} itemTemplate={(e:any) => itemTemplate(e)}/>
-            <Dropdown value={duration} onChange={(e) => setDuration(e.value)} options={durationList} optionLabel="name" 
+            <Dropdown value={duration} onChange={(e) => onDurationChange(e)} options={durationList} optionLabel="name" 
              className="w-full md:w-8rem" />
              {
                 UIUtils.nullOrEmpty(selectedObject) ? null :
