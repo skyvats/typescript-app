@@ -11,6 +11,7 @@ function App() {
   return (
     <PrimeReactProvider value={{ ripple: true }}>
       <MainComponent />
+        Created by Akash
     </PrimeReactProvider>
   );
 }
