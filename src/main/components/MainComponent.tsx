@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { SearchComponent } from "./homeComponents/SearchComponent";
+import React, { useState } from "react";
 import { Card } from "primereact/card";
-import ImageGeneratorMain from "./imageGenerator/ImageGeneratorMain";
+import DevToolsHubComponent from "./mainPageComponents/DevToolsHubComponent";
+import {MainMenuBar} from "./mainPageComponents/MainMenuBar";
 
 export const MainComponent=()=>{
 
@@ -13,10 +13,9 @@ export const MainComponent=()=>{
       );
 
     return(
-        <div className="main-background flex flex-wrap justify-content-center align-content-center h-12" style={{height:"58rem"}}>
-            <Card style={{width:requiredCardWidth, height: requiredCardHeight}}>
-                <SearchComponent/>
-                <ImageGeneratorMain/>
+        <div className="main-background flex flex-wrap justify-content-center align-content-center h-screen" >
+            <Card header={<MainMenuBar/>} className="w-11 p-0 m-0" style={{ padding: '20px' }}>
+                <DevToolsHubComponent/>
             </Card>
         </div>
     )
