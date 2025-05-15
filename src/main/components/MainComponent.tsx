@@ -14,7 +14,7 @@ export const MainComponent=()=>{
 
     return(
         <div className="main-background flex flex-wrap justify-content-center align-content-center h-screen" >
-            <Card header={<MainMenuBar/>} className="w-11 p-0 m-0" style={{ padding: '20px' }}>
+            <Card header={<MainMenuBar/>} className="w-11 p-0 m-0" style={{ height:"95vh", background:"white", borderRadius:"6px" }} unstyled={true}>
                 <DevToolsHubComponent/>
             </Card>
         </div>

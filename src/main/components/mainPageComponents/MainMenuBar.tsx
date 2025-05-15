@@ -56,7 +56,7 @@ export const MainMenuBar = () => {
             start={start}
             end={end}
             style={styles.menubar}
-            className="p-menubar"
+            className="p-menubar p-0 pl-3"
         />
     );
 };
