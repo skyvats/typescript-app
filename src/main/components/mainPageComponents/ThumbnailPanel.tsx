@@ -3,7 +3,11 @@ import {Image} from "primereact/image";
 import DevToolsThumbnail from "../../images/MianBackground.png";
 import {Button} from "primereact/button";
 
-export const ThumbnailPanel=()=>{
+interface ThumbnailPanelProps {
+    onGenerateImageClick:any
+}
+
+export const ThumbnailPanel=({onGenerateImageClick}:ThumbnailPanelProps)=>{
 
     return(
         <div className="text-center my-4">
@@ -21,7 +25,7 @@ export const ThumbnailPanel=()=>{
                         </p>
                         <div className="flex gap-2 w-12 flex justify-content-center md:justify-content-center align-items-center">
                             <Button label="Try NPM Component Search" className="p-button-primary" icon="pi pi-send" />
-                            <Button label="Generate AI images" className="p-button-secondary" icon="pi pi-image" />
+                            <Button label="Generate AI images" className="p-button-secondary" icon="pi pi-image" onClick={onGenerateImageClick}/>
                         </div>
                     </div>
                 </div>

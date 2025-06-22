@@ -9,7 +9,7 @@ interface Props {
 export const MainBodyPanel: React.FC<Props> = ({ onGenerateImageClick }) => {
     return (
         <>
-            <ThumbnailPanel />
+            <ThumbnailPanel onGenerateImageClick={onGenerateImageClick} />
             <DevToolsHubBody />
         </>
     );
