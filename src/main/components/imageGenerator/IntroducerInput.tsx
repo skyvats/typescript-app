@@ -12,7 +12,7 @@ const IntroducerInput=()=>{
     const [showFirstInputView, setShowFirstInputView] = useState<any>(true);
 
     return(
-        <div className="col-12  md:col-8 sm:col-12">
+        <div className="col-12  md:col-8 sm:col-12 w-10">
             <div className={"card flex flex-wrap justify-content-center align-content-center"} >
                 {showFirstInputView || UIUtils.nullOrEmpty(searchText) ?
                     <FirstInputView setViewSearchText={setSearchText} setShowFirstInputView={setShowFirstInputView}/>

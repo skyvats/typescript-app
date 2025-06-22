@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Card } from "primereact/card";
 import DevToolsHubComponent from "./mainPageComponents/DevToolsHubComponent";
 import {MainMenuBar} from "./mainPageComponents/MainMenuBar";
+import {FooterBar} from "./mainPageComponents/FooterBar";
 
 export const MainComponent=()=>{
+
+    //Adding an comment to check if able to commit.
 
     const [requiredCardWidth] = useState<string>(
         `${Math.floor(window.screen.availWidth * 0.8)}px`

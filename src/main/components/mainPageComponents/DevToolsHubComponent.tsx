@@ -1,31 +1,39 @@
-import React from 'react';
-import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
-import { Menubar } from 'primereact/menubar';
-import { Image } from 'primereact/image';
-import DevToolsThumbnail from "../../images/MianBackground.png";
-import { ThumbnailPanel } from "./ThumbnailPanel";
-import { Divider } from "primereact/divider";
-import { DevToolsHubBody } from "./DevToolsHubBody";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../store/store';
+import { setActiveView } from '../../../store/slices/activeViewSlice';
+import { FooterBar } from './FooterBar';
+import ImageGeneratorMain from '../imageGenerator/ImageGeneratorMain';
+import { MainBodyPanel } from './MainBodyPanel';
 
-const DevToolsHubComponent = () => {
+const DevToolsHubComponent: React.FC = () => {
+    const dispatch = useDispatch();
+    const activeView = useSelector((state: RootState) => state.activeView.activeView);
+
+    useEffect(() => {
+        const handlePopState = () => {
+            dispatch(setActiveView('mainBody'));
+        };
+
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+    }, [dispatch]);
+
+    const handleGenerateImageClick = () => {
+        dispatch(setActiveView('imageGenerator'));
+        window.history.pushState(null, '', 'image-generator');
+    };
+
     return (
-        <div className="p-2 pt-0 flex flex-column justify-content-between" style={{ height: "88vh" }}>
-            {/* Header and Main Content */}
+        <div className="p-0 flex flex-column justify-content-between" style={{ height: '88vh', overflow: 'auto' }}>
             <div>
-                <ThumbnailPanel />
-                <DevToolsHubBody />
+                {activeView === 'imageGenerator' ? (
+                    <ImageGeneratorMain />
+                ) : (
+                    <MainBodyPanel onGenerateImageClick={handleGenerateImageClick} />
+                )}
             </div>
-
-            {/* Footer */}
-            <footer className="text-center py-0 mt-auto">
-                <div className="flex justify-center gap-6">
-                    <a href="#">GitHub</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Privacy</a>
-                </div>
-                <p className="mt-2">v1.0.0</p>
-            </footer>
+            <FooterBar />
         </div>
     );
 };
